@@ -1,18 +1,15 @@
-
-CREATE TABLE professor (
-  id_professor SERIAL PRIMARY KEY,
-  nome varchar(255),
-  email varchar(255),
-  cpf varchar(14)
+create table professor (
+  id_professor serial primary key,
+  nome         varchar(100) not null,
+  email        varchar(100) not null unique,
+  criado_em    timestamp without time zone null default CURRENT_TIMESTAMP  
 );
 
-CREATE TABLE turma (
-  id_turma SERIAL PRIMARY KEY,
-  nome varchar(255),
-  qtd_alunos int,
-  fk_professor int,
-  CONSTRAINT fk_professor FOREIGN KEY (fk_professor) REFERENCES professor (id_professor)
+create table turma (
+  id_turma     serial primary key,
+  nome         varchar(100) not null,
+  id_professor integer not null,
+  criado_em    timestamp without time zone null default CURRENT_TIMESTAMP,  
+  constraint   fk_turma_professor foreign key (id_professor) 
+               references professor (id_professor)               
 );
-SELECT * FROM turma;
-
-INSERT INTO turma (nome, qtd_alunos, fk_professor) VALUES (2-D, 15, 2);
